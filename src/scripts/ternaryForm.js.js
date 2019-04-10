@@ -6,8 +6,8 @@ const articleContainer = document.getElementById("section-output")
 export default {
     ternary(){
         let newDocFragment = document.createDocumentFragment()
-        let newSection = document.createElement("article", neFormSection)
-
+        let newSection = document.createElement("article", newFormSection)
+        let nameOption = ["London", "Paris", "Berlin"]
         let nameInput = document.createElement("fieldset")
         articleContainer.appendChild(nameInput)
         let nameLabel = document.createElement("h3")
@@ -15,7 +15,14 @@ export default {
         nameInput.appendChild(nameLabel)
         let nameField = document.createElement("input")
         nameField.id = "name"
-        nameInput.appendChild(nameField)
+        nameOtion.forEach(name =>{
+            const nameOtion = document.createElement("option")
+            nameOption.setAttribute("value", name)
+            nameOption.textContent = mood
+
+            nameInput.appendChild(nameLabel)
+            nameInput.appendChild(nameField)
+        })
 
         let discriptionInput = document.createElement("fieldset")
         articleContainer.appendChild(discriptionInput)
@@ -26,9 +33,19 @@ export default {
         discrField.id = "discr"
         discriptionInput.appendChild(discrField)
 
+        let reviewtInput = document.createElement("fieldset")
+        articleContainer.appendChild(reviewtInput)
+        let revLabel = document.createElement("h3")
+        revLabel.textContent = "Review:"
+        reviewtInput.appendChild(revLabel)
+        let revField = document.createElement("input")
+        revField.id = "cost"
+        reviewtInput.appendChild(revField)
 
-
-
+        let saveFormButton = document.createElement("button")
+        saveFormButton.id = "sav"
+        saveFormButton.addEventListener("click", formEvent, handleSave)
+        const
 
     }
 
