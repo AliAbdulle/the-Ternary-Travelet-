@@ -1,57 +1,96 @@
-import HtmlBuilder from "./HtmlBuilder"
-import formEvent from "./ternaryEventHandler.js"
 
-const articleContainer = document.getElementById("section-output")
+import apiManager from "./apiManager"
+import evenHandler from "./ternaryEventHandler.js"
 
-export default {
-    ternaryFormSection() {
-        let newDocFragment = document.createDocumentFragment()
-        let sectionTern = HtmlBuilder.elementBuilder("section", "ternaryFormSection")
-        sectionTern.id = "ternaryForm"
 
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Name:", "name"))
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newName", "Name:", ""))
+    const ternaryForm = {
+    ternaryForm() {
+        const articleContainer = document.getElementById("section-output")
+        const sectionTr = document.querySelector("#section")
+        articleContainer.appendChild(sectionTr)
 
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Description:", "newDescription"))
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newDescription", "description:", ""))
+        const nameLabel = document.createElement("label")
+        nameLabel.textContent = "Name"
+        sectionTr.appendChild(nameLabel)
+        const nameInput = document.createElement("input")
+        nameInput.id = "nameInut"
+        sectionTr.appendChild(nameInput)
 
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Cost:", "newCost"))
-        let dateInput = sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newCost", "cost"))
-        dateInput.setAttribute("type", "date")
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Reviews:", "newReview"))
-        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newReview", "Review"))
+        const discrLabel = document.createElement("label")
+        discrLabel.textContent = "Discription"
+        sectionTr.appendChild(discrLabel)
+        const disInput = document.createElement("input")
+        disInput.id = "discription"
+        sectionTr.appendChild(disInput)
 
-        let saveButtonForm = HtmlBuilder.elementBuilder("button", undefined, "Save ", "Save")
-        saveButtonForm.id = "save"
+        const costcrLabel = document.createElement("label")
+        costcrLabel.textContent = "Cost"
+        sectionTr.appendChild(costcrLabel)
+        const costInput = document.createElement("input")
+        costInput.id = "cost"
+        sectionTr.appendChild(costInput)
 
-        saveButtonForm.addEventListener("click", formEvent.handleSave)
-        const articleSection = HtmlBuilder.elementBuilder("section", "sectionTern")
-        sectionTern.appendChild(saveButtonForm)
-        newDocFragment.appendChild(sectionTern)
-        newDocFragment.appendChild(articleSection)
-        articleContainer.appendChild(newDocFragment)
+        apiManager.getAllPlace()
+            .then(places => places.forEach(place => {
+                const Traveler = document.createElement("select")
+                const placeName = document.createElement("choose")
+                placeName.textContent = place.name
+                Traveler.appendChild(placeName)
+            }))
+
+        const addButton = document.createElement("button")
+        addButton.textContent = "Add Travel"
+        addButton.addEventListener("click", evenHandler.handlerSave)
+        sectionTr.appendChild(addButton)
     },
 
-    editTernaryForm(trObject) {
-        let trnEditArticle = HtmlBuilder.elementBuilder("article", "trnEditArticle")
-        trnEditArticle.id = "editArticle"
+    buildInterest() {
+        // articleInterst = document.querySelector("#article")
+        // articleContainer.appendChild(articleInterst)
 
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Name:"))
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-name-${trObject.id}`, undefined, trObject.name))
+        apiManager.getAllInterests()
+        .then(interests => interests.forEach(interest => {
+            const articleContainer = document.getElementById("section-output")
+                const articleInterst = document.createElement("#article")
+                articleInterst.id = `interest--${interest.placeId}`
+                articleContainer.appendChild(articleInterst)
 
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Description:"))
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-description-${trObject.id}`, undefined, trObject.description))
+                const interestName = document.createElement("h2")
+                interestName.textContent = interest.name
+                articleInterst.appendChild(interestName)
 
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, " Cost:"))
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-cost-${trObject.id}`, undefined, trObject.cost))
+                const interestDiscription = document.createElement("p")
+                interestDiscription.textContent = interest.discription
+                articleInterst.appendChild(interestDiscription)
 
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Review:"))
-        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-checkbox-${trObject.id}`, undefined, trObject.review))
+                const interestCost = document.createElement("p")
+                interestCost.textContent = interest.cost
+                articleInterst.appendChild(interestCost)
+
+                const interestReviews = document.createElement("p")
+                interestReviews.textContent = interest.reviews
+                articleInterst.appendChild(interestReviews)
+
+                const editButton = document.createElement("button")
+                editButton.id = "Edit"
+                articleInterst.appendChild(editButton)
+
+                const deleteButton = document.createElement("button")
+                deleteButton.id = "Delete"
+                articleInterst.appendChild(deleteButton)
+
+                apiManager.getAllPlaces()
+                    .then(places => places.forEach(place => {
+                        console.log(places.name)
+                        const placeName = document.createElement("choose")
+                        placeName.textContent = place.name
+
+                    }))
 
 
-        let editButtonForm = HtmlBuilder.elementBuilder("button", `edit-${trObject.id}`, "Save", "edit-save")
-        editButtonForm.addEventListener("click", formEvent.handleEdit)
-        trnEditArticle.appendChild(editButtonForm)
-        return trnEditArticle
+            }))
+
     }
+
 }
+export default ternaryForm

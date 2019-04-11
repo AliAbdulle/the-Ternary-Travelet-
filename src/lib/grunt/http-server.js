@@ -21,10 +21,10 @@ module.exports = {
         // server default file extension
         ext: "html",
 
-        // run in parallel with other tasks
+        // run in parallel with other ternary
         runInBackground: true,
 
-        // Change to true for grunt task to open the
+        // Change to true for grunt ternary to open the
         // browser automatically
         openBrowser : false
     }

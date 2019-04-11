@@ -1,23 +1,23 @@
 const apiManager = "http://localhost:8088"
 export default {
 
-getAll: (key) => {
-    return fetch(`${apiManager}/${key}`)
+getAllPlaces: () => {
+    return fetch(`${apiManager}/places`)
         .then(response => response.json())
 },
 
-getObject: (key, objectId) => {
-    return fetch (`${apiManager}/${key}/${objectId}`)
+getAllInterests: () => {
+    return fetch (`${apiManager}/places/interestPlaceId`)
          .then(response => response.json())
 
 },
-    postAll: (key, objectId) => {
-        return fetch (`${apiManager}/${key}`, {
+    postInterst: (interestObJect) => {
+        return fetch (`${apiManager}/interests`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
-            body:JSON.stringify(objectId)
+            body:JSON.stringify(interestObJect)
         })
     },
     getDelete: (key,itemId) => {

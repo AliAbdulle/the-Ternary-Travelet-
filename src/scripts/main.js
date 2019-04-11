@@ -1,8 +1,7 @@
-import ternaryForm from "./ternaryForm.js"
-import ternaryDomBuilder from "./ternaryDomBuilder";
 
+import ternaryForm from "./ternaryForm.js";
 
-ternaryForm.ternaryFormSection()
-ternaryDomBuilder.listAllTernery()
+ternaryForm.ternaryForm()
+ternaryForm.buildInterest()
 
 
