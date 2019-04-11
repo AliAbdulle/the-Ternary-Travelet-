@@ -1,52 +1,57 @@
 import HtmlBuilder from "./HtmlBuilder"
-import apiManager from "./apiManager"
-import ternary from "./ternaryEventHandler"
+import formEvent from "./ternaryEventHandler.js"
 
 const articleContainer = document.getElementById("section-output")
+
 export default {
-    ternary(){
+    ternaryFormSection() {
         let newDocFragment = document.createDocumentFragment()
-        let newSection = document.createElement("article", newFormSection)
-        let nameOption = ["London", "Paris", "Berlin"]
-        let nameInput = document.createElement("fieldset")
-        articleContainer.appendChild(nameInput)
-        let nameLabel = document.createElement("h3")
-        nameLabel.textContent = "Name:"
-        nameInput.appendChild(nameLabel)
-        let nameField = document.createElement("input")
-        nameField.id = "name"
-        nameOtion.forEach(name =>{
-            const nameOtion = document.createElement("option")
-            nameOption.setAttribute("value", name)
-            nameOption.textContent = mood
+        let sectionTern = HtmlBuilder.elementBuilder("section", "ternaryFormSection")
+        sectionTern.id = "ternaryForm"
 
-            nameInput.appendChild(nameLabel)
-            nameInput.appendChild(nameField)
-        })
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Name:", "name"))
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newName", "Name:", ""))
 
-        let discriptionInput = document.createElement("fieldset")
-        articleContainer.appendChild(discriptionInput)
-        let discrLabel = document.createElement("h3")
-        discrLabel.textContent = "Discription:"
-        discriptionInput.appendChild(discrLabel)
-        let discrField = document.createElement("input")
-        discrField.id = "discr"
-        discriptionInput.appendChild(discrField)
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Description:", "newDescription"))
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newDescription", "description:", ""))
 
-        let reviewtInput = document.createElement("fieldset")
-        articleContainer.appendChild(reviewtInput)
-        let revLabel = document.createElement("h3")
-        revLabel.textContent = "Review:"
-        reviewtInput.appendChild(revLabel)
-        let revField = document.createElement("input")
-        revField.id = "cost"
-        reviewtInput.appendChild(revField)
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Cost:", "newCost"))
+        let dateInput = sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newCost", "cost"))
+        dateInput.setAttribute("type", "date")
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Reviews:", "newReview"))
+        sectionTern.appendChild(HtmlBuilder.elementBuilder("input", "newReview", "Review"))
 
-        let saveFormButton = document.createElement("button")
-        saveFormButton.id = "sav"
-        saveFormButton.addEventListener("click", formEvent, handleSave)
-        const
+        let saveButtonForm = HtmlBuilder.elementBuilder("button", undefined, "Save ", "Save")
+        saveButtonForm.id = "save"
 
+        saveButtonForm.addEventListener("click", formEvent.handleSave)
+        const articleSection = HtmlBuilder.elementBuilder("section", "sectionTern")
+        sectionTern.appendChild(saveButtonForm)
+        newDocFragment.appendChild(sectionTern)
+        newDocFragment.appendChild(articleSection)
+        articleContainer.appendChild(newDocFragment)
+    },
+
+    editTernaryForm(trObject) {
+        let trnEditArticle = HtmlBuilder.elementBuilder("article", "trnEditArticle")
+        trnEditArticle.id = "editArticle"
+
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Name:"))
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-name-${trObject.id}`, undefined, trObject.name))
+
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Description:"))
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-description-${trObject.id}`, undefined, trObject.description))
+
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, " Cost:"))
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-cost-${trObject.id}`, undefined, trObject.cost))
+
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("label", undefined, "Review:"))
+        trnEditArticle.appendChild(HtmlBuilder.elementBuilder("input", `edit-ternary-checkbox-${trObject.id}`, undefined, trObject.review))
+
+
+        let editButtonForm = HtmlBuilder.elementBuilder("button", `edit-${trObject.id}`, "Save", "edit-save")
+        editButtonForm.addEventListener("click", formEvent.handleEdit)
+        trnEditArticle.appendChild(editButtonForm)
+        return trnEditArticle
     }
-
 }
